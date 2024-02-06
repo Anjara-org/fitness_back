@@ -11,6 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.Optional;
+
 
 @AllArgsConstructor
 @Component
@@ -26,7 +29,8 @@ public class UserAuthentication implements AuthenticationProvider {
         if( user != null && user.getPassword().equals(password)) {
             return new UsernamePasswordAuthenticationToken(
                     email,
-                    password
+                    password,
+                    Collections.singleton(user.getRole())
             );
         }
 
