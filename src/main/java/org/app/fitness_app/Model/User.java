@@ -2,6 +2,7 @@ package org.app.fitness_app.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.app.fitness_app.Security.SecurityModel.Role;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @NoArgsConstructor
 @Table(name = "\'user\'")
@@ -69,4 +71,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

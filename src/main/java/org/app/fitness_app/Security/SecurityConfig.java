@@ -1,42 +1,55 @@
 package org.app.fitness_app.Security;
 
-import jakarta.servlet.ServletException;
-import lombok.AllArgsConstructor;
-import lombok.NonNull;
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
-
-
-@Component
+@Configuration
+@EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends OncePerRequestFilter {
-    private final JwtService jwtService;
-    @Override
-    protected void doFilterInternal(
-            @NonNull jakarta.servlet.http.HttpServletRequest request,
-            @NonNull  jakarta.servlet.http.HttpServletResponse response,
-            @NonNull jakarta.servlet.FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwtToken;
-        final String userEmail;
-        if(authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        jwtToken = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwtToken);
+@Slf4j
+public class SecurityConfig {
+    private final AuthenticationProvider authenticationProvider;
 
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+              /* .csrf()
+               .disable()
+               .authorizeHttpRequests()
+               .requestMatchers("")
+                .permitAll()
+                .anyRequest()
+               .authenticated()
+              .and()
+              .sessionManagement()
+              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+              .and()
+              .authenticationProvider(authenticationProvider)*/
+
+         http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().authenticated()
+                        .requestMatchers(new String[]{"/", ""}).authenticated()
+                        .requestMatchers("/login").anonymous()
+                        .requestMatchers("/signIn").authenticated()
+
+                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .httpBasic(Customizer.withDefaults());
+
+
+        return http.build();
     }
 }
