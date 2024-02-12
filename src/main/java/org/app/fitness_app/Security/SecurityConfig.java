@@ -12,42 +12,26 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
-@Slf4j
 public class SecurityConfig {
-    private final AuthenticationProvider authenticationProvider;
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-              /* .csrf()
-               .disable()
-               .authorizeHttpRequests()
-               .requestMatchers("")
+        http     .csrf()
+                .disable()
+                .cors()
+                .disable()
+                .authorizeRequests()
+                .requestMatchers("/signIn", "/login")
                 .permitAll()
                 .anyRequest()
-               .authenticated()
-              .and()
-              .sessionManagement()
-              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-              .and()
-              .authenticationProvider(authenticationProvider)*/
-
-         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated()
-                        .requestMatchers(new String[]{"/", ""}).authenticated()
-                        .requestMatchers("/login").anonymous()
-                        .requestMatchers("/signIn").authenticated()
-
-                )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .httpBasic(Customizer.withDefaults());
+                .authenticated()
+                .and().exceptionHandling()
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
         return http.build();
