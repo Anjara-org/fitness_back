@@ -1,11 +1,9 @@
 package org.app.fitness_app.Service;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.app.fitness_app.Model.User;
 import org.app.fitness_app.Model.UserAuthenticate;
 import org.app.fitness_app.Repository.UserInterface;
-import org.app.fitness_app.Security.JwtService;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

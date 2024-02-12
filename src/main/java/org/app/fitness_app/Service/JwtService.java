@@ -1,4 +1,4 @@
-package org.app.fitness_app.Security;
+package org.app.fitness_app.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
 import org.app.fitness_app.Model.User;
+import org.app.fitness_app.Security.JwtKeyProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ import java.util.function.Function;
 @Data
 public class JwtService {
     @Autowired
-    private  JwtKeyProvider secretKey;
+    private JwtKeyProvider secretKey;
     // extract username or email from the token
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
