@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 public class UserAuthenticate {
-
         private String email;
         private String password;
 }
