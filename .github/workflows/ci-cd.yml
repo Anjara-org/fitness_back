@@ -1,0 +1,23 @@
+name: Dockerhub deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  dockerhub-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Push to dockerhub and deploy
+        uses: ./.github/actions/ci-cd
+        env:
+          DOCKERHUB_REPO: ${{vars.DOCKERHUB_REPO}}
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+          APP_NAME: ${{vars.APP_NAME}}
+          DB_USERNAME: ${{secrets.DB_USERNAME}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+          DB_URL: ${{secrets.DB_URL}}
