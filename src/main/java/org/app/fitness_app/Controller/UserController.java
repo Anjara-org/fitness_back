@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Data
 public class UserController {
     private UserService service;
-    @PostMapping("/signIn")
+    @PostMapping("/signup")
     public ResponseEntity<User> Register(@RequestBody User user){
         try {
            User newUser = service.AddNewUser(user);

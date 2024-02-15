@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,7 +22,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http     .csrf()
+        http     /*.csrf()
                 .disable()
                 .cors()
                 .disable()
@@ -31,8 +33,15 @@ public class SecurityConfig {
                 .authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
+                .authorizeHttpRequests((request) -> request
+                        .requestMatchers("/", "/home")
+                        .authenticated()
+                        .requestMatchers("/signup", "/login")
+                        .permitAll()
+                )
+                //.httpBasic(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
