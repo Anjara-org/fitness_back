@@ -3,6 +3,7 @@ package org.app.fitness_app.Security;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.app.fitness_app.Security.SecurityModel.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -24,15 +25,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/", "/home")
+                        .anyRequest().permitAll()
+                        /*.requestMatchers("/", "/home")
                         .authenticated()
                         .requestMatchers("/signup", "/login")
                         .permitAll()
                         .requestMatchers("/ping")
                         .permitAll()
+                        .requestMatchers("/users", "/users/**")
+                        .hasRole(Role.ADMIN.getRole())
+                        .authenticated()*/
                 )
                 .csrf(AbstractHttpConfigurer::disable);
-
         return http.build();
     }
 }
