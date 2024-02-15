@@ -22,25 +22,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http     /*.csrf()
-                .disable()
-                .cors()
-                .disable()
-                .authorizeRequests()
-                .requestMatchers("/signIn", "/login")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and().exceptionHandling()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
+        http
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/", "/home")
                         .authenticated()
                         .requestMatchers("/signup", "/login")
                         .permitAll()
+                        .requestMatchers("/ping")
+                        .permitAll()
                 )
-                //.httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
