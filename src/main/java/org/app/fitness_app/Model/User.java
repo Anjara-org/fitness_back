@@ -26,18 +26,22 @@ public class User implements UserDetails, Serializable {
     @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      int id;
+
     @Column(name = "user_name")
      String name;
+
     @Column(name = "user_first_name")
      String firstName;
+
     @Column(name = "user_email", unique = true, nullable = false)
      String email;
+
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
     Role role;
+
     @Column(name = "user_password", nullable = false)
      String password;
-    @Column(name= "id_coach")
 
     @ManyToOne
     @JoinColumn(name= "id_coach" )

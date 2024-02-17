@@ -15,10 +15,12 @@ public class Room {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "id_room")
-    int id;
+    int idRoom;
+
     @Column(name = "room_equipment")
     @Enumerated(EnumType.STRING)
     Equipments roomEquipment;
+
     @Column(name = "room_localisation")
     String localisation;
 }

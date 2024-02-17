@@ -14,13 +14,17 @@ public class Coach {
      @Id()
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      @Column(name = "id_coach")
-     int Id;
+     int idCoach;
+
      @Column(name = "coach_name")
      String Name;
+
      @Column(name = "coach_first_name")
      String firstName;
+
      @Column(name = "coach_number_phone")
      String numberPhone;
+
      @ManyToOne
      @JoinColumn(name= "id_room")
      Room room;
