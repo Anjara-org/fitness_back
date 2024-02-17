@@ -17,6 +17,4 @@ public class CoachController {
     public List<Coach> findAllCoach(@PathVariable  int idRoom) {
         return service.findCoachByIdRoom(idRoom);
     }
-
-
 }
