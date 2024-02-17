@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface CoachCrudOperations extends JpaRepository<Coach, Integer> {
-   public List<Coach> findCoachByRoom(Room room);
+
 }

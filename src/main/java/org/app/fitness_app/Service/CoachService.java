@@ -12,11 +12,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CoachService {
     private CoachCrudOperations coachCrudOperations;
-    public List<Coach> findCoachByIdRoom(int idRoom){
-        Room room = new Room();
-        room.setIdRoom(idRoom);
-        return coachCrudOperations.findCoachByRoom(room);
-    };
+    public List<Coach> findAll(){
+        return coachCrudOperations.findAll();
+    }
 
 
 }

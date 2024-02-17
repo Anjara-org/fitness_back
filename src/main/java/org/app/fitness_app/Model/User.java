@@ -43,9 +43,6 @@ public class User implements UserDetails, Serializable {
     @Column(name = "user_password", nullable = false)
      String password;
 
-    @ManyToOne
-    @JoinColumn(name= "id_coach" )
-    Coach coach;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

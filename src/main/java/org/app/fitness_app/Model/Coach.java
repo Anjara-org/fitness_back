@@ -25,7 +25,4 @@ public class Coach {
      @Column(name = "coach_number_phone")
      String numberPhone;
 
-     @ManyToOne
-     @JoinColumn(name= "id_room")
-     Room room;
 }

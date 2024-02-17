@@ -14,7 +14,7 @@ import java.util.List;
 public class CoachController {
     private  CoachService service;
     @GetMapping("/coach")
-    public List<Coach> findAllCoach(@PathVariable  int idRoom) {
-        return service.findCoachByIdRoom(idRoom);
+    public List<Coach> findAllCoach() {
+        return service.findAll();
     }
 }
