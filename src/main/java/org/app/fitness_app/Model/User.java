@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.app.fitness_app.Security.SecurityModel.Role;
+import org.app.fitness_app.Model.EnumType.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +37,11 @@ public class User implements UserDetails, Serializable {
     Role role;
     @Column(name = "user_password", nullable = false)
      String password;
+    @Column(name= "id_coach")
+
+    @ManyToOne
+    @JoinColumn(name= "id_coach" )
+    Coach coach;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
