@@ -5,10 +5,10 @@ import org.app.fitness_app.Model.UserAuthenticate;
 import org.app.fitness_app.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -32,29 +32,30 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserAuthenticate loginRequest) {
         String token = service.login(loginRequest);
-        if (token != null) {
-            return ResponseEntity.ok(token);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body("Invalid username or password");
-        }
+        return ResponseEntity.ok(Objects.requireNonNullElse(token, "Invalid username or password"));
     }
 
     @GetMapping("/users")
-    public List<User> findAll() {
-        return service.findAll();
+    public ResponseEntity<List<User>> findAll() {
+        List<User> users = service.findAll();
+        return ResponseEntity.ok(users);
     }
     @PutMapping("/users")
-    public User save(User toSave) {
-        return service.save(toSave);
+    public ResponseEntity<User> save(User toSave) {
+        User user = service.save(toSave);
+        return ResponseEntity.ok(user);
     }
     @GetMapping("/users/{id}")
-    public Optional<User> findById(@PathVariable int id) {
-        return service.findById(id);
+    public ResponseEntity<Object> findById(@PathVariable int id) {
+        Optional<User> user = service.findById(id);
+        return user.<ResponseEntity<Object>>map(
+                value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> ResponseEntity.ok("User not found")
+        );
     }
 
     @DeleteMapping("/users/{id}")
-    public String delete(@PathVariable int id) {
-        return service.deleteById(id);
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        return ResponseEntity.ok(service.deleteById(id));
     }
 
 }
