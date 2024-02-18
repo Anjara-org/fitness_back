@@ -1,4 +1,4 @@
-package org.app.fitness_app.Model.EnumType;
+package org.app.fitness_app.Security.Model;
 
 import org.springframework.security.core.GrantedAuthority;
 

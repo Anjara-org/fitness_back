@@ -16,15 +16,6 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((request) -> request
                         .anyRequest().permitAll()
-                        /*.requestMatchers("/", "/home")
-                        .authenticated()
-                        .requestMatchers("/signup", "/login")
-                        .permitAll()
-                        .requestMatchers("/ping")
-                        .permitAll()
-                        .requestMatchers("/users", "/users/**")
-                        .hasRole(Role.ADMIN.getRole())
-                        .authenticated()*/
                 )
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
