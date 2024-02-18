@@ -21,3 +21,11 @@ jobs:
           DB_USERNAME: ${{secrets.DB_USERNAME}}
           DB_PASSWORD: ${{secrets.DB_PASSWORD}}
           DB_URL: ${{secrets.DB_URL}}
+
+      - name: Trigger deployment
+        run: |
+          curl ${{secrets.DEPLOY_HOOK}}
+          echo "-----------Project deployed successfully !------------"
+          echo "
+          Copyright ©, Anjara.org
+          "
