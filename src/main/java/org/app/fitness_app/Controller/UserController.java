@@ -49,7 +49,9 @@ public class UserController {
     public ResponseEntity<Object> findById(@PathVariable int id) {
         Optional<User> user = service.findById(id);
         return user.<ResponseEntity<Object>>map(
-                value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> ResponseEntity.ok("User not found")
+                value -> new ResponseEntity<>(value, HttpStatus.OK)
+        ).orElseGet(
+                () -> ResponseEntity.ok("User not found")
         );
     }
 
