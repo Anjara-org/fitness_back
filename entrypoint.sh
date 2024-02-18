@@ -53,6 +53,4 @@ curl -s -X DELETE -H "Authorization: Bearer $DKR_TOKEN" \
 echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
 docker tag "${APP_NAME}":latest "${DOCKERHUB_USERNAME}"/"${DOCKERHUB_REPO}":latest
 sleep 30
-curl -s -X GET -H "Authorization: Bearer $DKR_TOKEN" \
-"$DKR_API_REPO"/"$DOCKERHUB_USERNAME"/"$APP_NAME"/tags/latest
 docker push "${DOCKERHUB_USERNAME}"/"${DOCKERHUB_REPO}":latest
