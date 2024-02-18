@@ -3,7 +3,7 @@ package org.app.fitness_app.Service;
 import org.app.fitness_app.Model.User;
 import org.app.fitness_app.Model.UserAuthenticate;
 import org.app.fitness_app.Repository.UserCrudOperations;
-import org.aspectj.weaver.NewConstructorTypeMunger;
+import org.app.fitness_app.Security.Service.JwtService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

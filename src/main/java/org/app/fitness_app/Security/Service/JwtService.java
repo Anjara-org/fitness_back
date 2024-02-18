@@ -1,4 +1,4 @@
-package org.app.fitness_app.Service;
+package org.app.fitness_app.Security.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
