@@ -1,17 +1,17 @@
-name: Dockerhub deploy
+name: Deploy the app
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  dockerhub-deploy:
+  deploy-app:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Push to dockerhub and deploy
+      - name: Build and push image
         uses: ./.github/actions/ci-cd
         env:
           DOCKERHUB_REPO: ${{vars.DOCKERHUB_REPO}}
@@ -21,3 +21,11 @@ jobs:
           DB_USERNAME: ${{secrets.DB_USERNAME}}
           DB_PASSWORD: ${{secrets.DB_PASSWORD}}
           DB_URL: ${{secrets.DB_URL}}
+
+      - name: Trigger deployment
+        run: |
+          curl ${{secrets.DEPLOY_HOOK}}
+          echo "-----------Project deployed successfully !------------"
+          echo "
+          Copyright ©, Anjara.org
+          "
