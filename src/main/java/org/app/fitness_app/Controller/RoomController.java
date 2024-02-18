@@ -30,7 +30,7 @@ public class RoomController {
         );
     }
     @PutMapping("/rooms")
-    public ResponseEntity<Room> save(Room toSave) {
+    public ResponseEntity<Room> save(@RequestBody Room toSave) {
         return ResponseEntity.ok(roomService.save(toSave));
     }
     @DeleteMapping("/rooms/{id}")
