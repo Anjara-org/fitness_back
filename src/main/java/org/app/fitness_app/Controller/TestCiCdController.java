@@ -7,14 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-public class DefaultController {
-
-    @GetMapping("/")
-    public ResponseEntity<String> noResource(){
-        return ResponseEntity.ok("No resource found !");
-    }
-    @GetMapping("*")
-    public ResponseEntity<String> notFound(){
-        return ResponseEntity.ok("Path not found !");
+public class TestCiCdController {
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("Test passed !");
     }
 }
