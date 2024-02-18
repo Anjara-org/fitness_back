@@ -37,24 +37,19 @@ ENV DB_URL=$DB_URL
 COPY target/*.jar "$APP_NAME".jar
 ENTRYPOINT ["\"java\"", "\"-jar\"", "\"$APP_NAME.jar\""]
 " > Dockerfile
-docker build -t "$APP_NAME":latest -f Dockerfile .
+
+docker prune -a
+docker build --no-cache -t "$APP_NAME":latest -f Dockerfile .
 
 echo "-----------Pushing image to dockerhub------------"
-apt-install -y jq
+apt-get install -y jq
 DKR_TOKEN=$(curl -s -X POST -H "Content-Type: application/json" \
 https://hub.docker.com/v2/users/login \
 -d "{"\"username\"": \"$DOCKERHUB_USERNAME\", \"password\": \"$DOCKERHUB_PASSWORD\"}" | jq -r '.token')
 DKR_API_REPO="https://hub.docker.com/v2/repositories"
-
-curl -X DELETE -H "Authorization: Bearer $DKR_TOKEN" \
+curl -s -X DELETE -H "Authorization: Bearer $DKR_TOKEN" \
 "$DKR_API_REPO"/"$DOCKERHUB_USERNAME"/"$APP_NAME"/tags/latest
-
 echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
 docker tag "${APP_NAME}":latest "${DOCKERHUB_USERNAME}"/"${DOCKERHUB_REPO}":latest
+sleep 30
 docker push "${DOCKERHUB_USERNAME}"/"${DOCKERHUB_REPO}":latest
-
-echo "-----------Project deployed successfully !------------"
-echo "
-Enjoy your day !
-Copyright ©, Anjara.org
-"
