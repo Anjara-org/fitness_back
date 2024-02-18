@@ -33,7 +33,7 @@ public class CoachController {
     public ResponseEntity<Coach> save(@RequestBody Coach toSave) {
         return ResponseEntity.ok(service.save(toSave));
     }
-    @PutMapping("/coaches/{id}")
+    @DeleteMapping("/coaches/{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
         return ResponseEntity.ok(service.delete(id));
     }
