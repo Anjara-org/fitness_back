@@ -25,4 +25,9 @@ public class CoachService {
     public Coach save(Coach toSave) {
         return coachCrudOperations.save(toSave);
     }
+
+    public String delete(int id) {
+        coachCrudOperations.deleteById(id);
+        return "Coach deleted";
+    }
 }

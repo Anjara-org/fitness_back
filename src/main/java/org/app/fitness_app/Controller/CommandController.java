@@ -13,22 +13,22 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CommandController {
     private CommandService service;
-    @GetMapping("/Command")
+    @GetMapping("/commands")
     public List<Command> ShowAllCommand(){
         return service.findAll();
     }
 
-    @PostMapping("/Command")
+    @PostMapping("/commands")
     public Command save(@RequestBody Command command){
         return service.save(command);
     }
 
-    @GetMapping("/Command/{id}")
+    @GetMapping("/commands/{id}")
     public Optional<Command> findCommand(@PathVariable int id){
         return service.findById(id);
     }
 
-    @DeleteMapping("/Command/{id}")
+    @DeleteMapping("/commands/{id}")
     public String deletedById(@PathVariable int id){
         return service.deleteById(id);
     }
